@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="hu" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kovács Krisztián EV. - Autójavítás Zalaegerszeg</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom styles */
+        body {
+            font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+            /* Removed padding-top/bottom, moved to main */
+            /* Removed bg-gray-100, video is background */
+        }
+
+        header nav ul li a.active {
+            font-weight: bold;
+            color: #ffffff;
+            border-bottom: 2px solid #ffffff;
+        }
+
+        /* Hide sections by default */
+        main section:not(#kezdolap) {
+            display: none;
+        }
+
+        /* Styling for content sections over the video */
+        main section {
+             /* Changed background to match card background */
+             background-color: rgba(40, 40, 40, 0.7); /* Darker semi-transparent background */
+             color: #FFF; /* White text for visibility */
+             border-radius: 5px;
+             padding: 20px; /* Consistent padding */
+             margin-bottom: 20px; /* Consistent margin */
+             /* Removed text shadow as background is darker */
+        }
+         /* Ensure all text elements within sections inherit white or are set explicitly if needed */
+         main section h2, main section h3, main section p, main section strong, main section li {
+              color: #FFF; /* Explicitly set white */
+         }
+          main section a {
+             /* White link color, underlined for visibility */
+             color: #FFF;
+             text-decoration: underline;
+         }
+         main section a:hover { }
+         main section .text-blue-600 { /* This class was used for Telephely */
+             color: #93c5fd; /* Adjusted light blue for dark background */
+             font-weight: bold;
+          }
+
+        /* Specific styling for sections with transparent background */
+        #szolgaltatasok, #referenciak, #ajanlatkeres {
+            background-color: transparent; /* Override default section background */
+            padding: 0; /* Remove section padding, rely on card/form padding */
+            margin-bottom: 20px; /* Keep margin */
+            /* box-shadow: none; */ /* Remove shadow if desired */
+        }
+        /* Keep the H2 style consistent for transparent sections */
+         #szolgaltatasok h2, #referenciak h2, #ajanlatkeres h2 {
+             color: #FFF;
+             padding-top: 20px; /* Add padding back to H2 */
+             margin-bottom: 1.5rem; /* Keep original mb-6 spacing (approx) */
+             text-align: center;
+             font-size: 1.875rem; /* text-3xl */
+             line-height: 2.25rem; /* leading-9 */
+             font-weight: 700; /* font-bold */
+             text-shadow: 0px 0px 6px rgba(0, 0, 0, 0.8); /* Add shadow to H2s on transparent bg */
+         }
+         /* Adjust Ajánlatkérés paragraph padding/margin if needed */
+         #ajanlatkeres > p { /* Target the paragraph directly under the section */
+              padding: 0 20px; /* Add horizontal padding if section padding is removed */
+              margin-bottom: 1.5rem; /* mb-6 */
+              text-align: center;
+              color: #FFF; /* Ensure white text */
+              text-shadow: 0px 0px 6px rgba(0, 0, 0, 0.8); /* Keep shadow for this text */
+         }
+
+
+         /* Card styling: Kept semi-transparent dark background for structure */
+         .szolgaltatas, .referencia-munka {
+             background-color: rgba(40, 40, 40, 0.7); /* Darker semi-transparent background for cards */
+             border: 1px solid rgba(255, 255, 255, 0.2); /* Lighter border */
+             border-radius: 5px;
+             padding: 20px;
+             /* margin-bottom is handled by the grid gap */
+             text-align: center;
+             transition: box-shadow 0.3s ease;
+             box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+             color: #FFF; /* White text inside cards */
+             display: flex; /* Use flexbox for alignment */
+             flex-direction: column; /* Stack items vertically */
+             justify-content: space-between; /* Push content apart */
+             min-height: 280px; /* Ensure cards have a minimum height */
+         }
+         .szolgaltatas h3, .referencia-munka h3 { /* Added h3 styling */
+             color: #FFF;
+             text-shadow: none;
+             font-size: 1.125rem; /* text-lg */
+             font-weight: 600; /* font-semibold */
+             /* margin-top: 1rem; */ /* Removed top margin for h3 */
+             margin-bottom: 0.5rem; /* mb-2 */
+         }
+          .referencia-munka p, .szolgaltatas p {
+             color: #E5E7EB; /* Lighter gray for description text inside cards */
+             text-shadow: none;
+             font-size: 0.875rem; /* text-sm */
+             flex-grow: 1; /* Allow paragraph to grow */
+             margin-bottom: 1rem; /* Add margin below paragraph */
+         }
+         .szolgaltatas:hover, .referencia-munka:hover {
+             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+             background-color: rgba(50, 50, 50, 0.8); /* Slightly darker on hover */
+         }
+
+        /* Form styling adjustments */
+        #ajanlatkeres form {
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            background-color: rgba(255, 255, 255, 0.9); /* Keep form background light but slightly transparent */
+            padding: 2rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        #ajanlatkeres form label {
+             text-align: left;
+             width: 100%;
+             color: #333; /* Dark label on light background */
+             font-weight: bold;
+        }
+        #ajanlatkeres form input,
+        #ajanlatkeres form select,
+        #ajanlatkeres form textarea {
+             background-color: white;
+             color: #333; /* Dark text in inputs */
+             border: 1px solid #ccc;
+             width: 100%; /* Ensure full width inside padding */
+             padding: 10px;
+        }
+
+        /* Map container styling */
+        .terkep-kontener {
+            position: relative;
+            padding-bottom: 75%;
+            height: 0;
+            overflow: hidden;
+            max-width: 100%;
+            background: #eee;
+            border-radius: 0.375rem;
+        }
+        .terkep-kontener iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        /* Image styling within cards */
+        .szolgaltatas img, .referencia-munka img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 4px;
+            margin-bottom: 10px; /* Default margin */
+            display: inline-block;
+            onerror:"this.onerror=null;this.src='https://placehold.co/300x200/f87171/ffffff?text=Hiba';";
+        }
+        .szolgaltatas img {
+             height: 10rem;
+             object-fit: cover;
+             width: 100%;
+        }
+         .referencia-munka img.ref-img-single {
+             height: 10rem;
+             object-fit: cover;
+             width: 100%;
+             margin-bottom: 1rem; /* mb-4, increased margin for single image */
+         }
+         .referencia-munka img.ref-img-pair {
+              height: 8rem;
+              object-fit: cover;
+         }
+        .referencia-munka img + img {
+            margin-left: 1rem;
+        }
+
+        /* Lightbox Modal Styles */
+        #lightbox-modal {
+            /* Tailwind classes used: fixed inset-0 bg-black/90 hidden items-center justify-center z-[100] p-4 opacity-0 transition-opacity duration-300 */
+            transition: opacity 0.3s ease-in-out;
+        }
+         #lightbox-modal.show {
+             display: flex; /* Use flex instead of block to utilize items-center justify-center */
+             opacity: 1;
+         }
+         #lightbox-content img {
+             cursor: pointer; /* Indicate images are clickable */
+             transition: transform 0.2s ease-in-out;
+         }
+          #lightbox-content img:hover {
+             transform: scale(1.05); /* Slight zoom effect on hover */
+          }
+
+    </style>
+</head>
+
+<body class="font-sans"> <video autoplay loop muted playsinline class="fixed inset-0 w-full h-full object-cover -z-10">
+        <source src="hattervideo.mp4" type="video/mp4">
+        Sajnáljuk, a böngésződ nem támogatja a videó lejátszását.
+    </video>
+
+    <header class="bg-black/70 shadow-md fixed top-0 left-0 right-0 z-50 h-20 flex items-center">
+        <div class="container mx-auto px-4 flex flex-wrap justify-between items-center">
+            <div class="flex items-center space-x-3 text-white">
+                <img src="logo.png" alt="Kovács Krisztián EV. logó" class="h-10 w-10 rounded-full object-cover border-2 border-white" onerror="this.onerror=null;this.src='https://placehold.co/50x50/f87171/ffffff?text=Hiba';">
+                <h1 class="text-xl font-bold">Kovács Krisztián EV.</h1>
+            </div>
+            <nav>
+                <ul class="flex flex-wrap space-x-4 md:space-x-6 text-sm md:text-base">
+                    <li><a href="#kezdolap" data-target="kezdolap" class="text-gray-200 hover:text-white py-2 px-1 transition duration-300 active">Kezdőlap</a></li>
+                    <li><a href="#bemutatkozas" data-target="bemutatkozas" class="text-gray-200 hover:text-white py-2 px-1 transition duration-300">Bemutatkozás</a></li>
+                    <li><a href="#szolgaltatasok" data-target="szolgaltatasok" class="text-gray-200 hover:text-white py-2 px-1 transition duration-300">Szolgáltatások</a></li>
+                    <li><a href="#referenciak" data-target="referenciak" class="text-gray-200 hover:text-white py-2 px-1 transition duration-300">Referenciák</a></li>
+                    <li><a href="#kapcsolat" data-target="kapcsolat" class="text-gray-200 hover:text-white py-2 px-1 transition duration-300">Kapcsolat</a></li>
+                    <li><a href="#ajanlatkeres" data-target="ajanlatkeres" class="text-gray-200 hover:text-white py-2 px-1 transition duration-300">Ajánlatkérés</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-8 relative z-10" style="padding-top: 100px; padding-bottom: 84px;">
+        <section id="kezdolap">
+             <div class="text-center mb-6 pt-4">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4">Üdvözöljük Autószervizünkben!</h2>
+                <p class="text-lg md:text-xl mb-6">Megbízható és professzionális autójavítás Zalaegerszegen.</p>
+                <a href="#ajanlatkeres" data-target="ajanlatkeres" class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg transition duration-300 text-lg inline-block shadow-md no-underline">Kérjen Ajánlatot Most!</a> </div>
+             <hr class="my-6 border-white opacity-30"> <h3 class="text-2xl md:text-3xl font-bold mb-4 text-center">Köszöntjük Honlapunkon!</h3>
+            <p class="mb-4">
+                Köszönjük, hogy ellátogatott Kovács Krisztián EV. autószervizének weboldalára! Célunk, hogy gépjárműve a lehető legjobb gondoskodást kapja, megfizethető áron. Zalaegerszegen, a Berek utca 38. szám alatt várjuk modern műhelyünkben.
+            </p>
+            <p class="mb-4">
+                Böngésszen szolgáltatásaink között, tekintse meg referencia munkáinkat, vagy lépjen velünk kapcsolatba egyedi ajánlatért. Bízunk benne, hogy hamarosan Önt is elégedett ügyfeleink között üdvözölhetjük!
+            </p>
+             <div class="mt-6 text-center">
+                 <a href="#szolgaltatasok" data-target="szolgaltatasok" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg transition duration-300 inline-block mr-4 shadow no-underline">Szolgáltatásaink</a>
+                 <a href="#kapcsolat" data-target="kapcsolat" class="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-lg transition duration-300 inline-block shadow no-underline">Kapcsolatfelvétel</a>
+            </div>
+        </section>
+
+        <section id="bemutatkozas">
+            <h2 class="text-2xl md:text-3xl font-bold mb-4 text-center">Bemutatkozás</h2>
+            <p class="mb-4">
+                Kovács Krisztián vagyok, és elkötelezett vagyok amellett, hogy gépjárműve megérdemelt gondoskodást kapjon elérhető áron. Telephelyem Zalaegerszegen, a Berek utca 38. szám alatt található, ahol kiválóan felszerelt műhelyemben várom régi és új ügyfeleimet.
+            </p>
+            <p class="mb-4">
+                Filozófiám a "megjavít, nem kicserél" elven alapszik, így biztosíthatom, hogy a javítási költségek kedvezőek maradjanak az Ön számára is. Szakterületeim közé tartozik a professzionális polírozás egyedi technológiával, a karosszéria javítás, a teljes körű autójavítás, valamint a sérült műanyag alkatrészek újjá varázslása.
+            </p>
+            <p>
+                Ha szeretné igénybe venni szolgáltatásaimat, vagy ajánlatot kérne, kérem, vegye fel velem a kapcsolatot telefonon a <a href="tel:+36304134151" class="font-semibold">+36 30 413 4151</a>-es számon, vagy írjon e-mailt a <a href="mailto:krisztian.kovacs199601@gmail.com" class="font-semibold">krisztian.kovacs199601@gmail.com</a> címre. Várom megkeresését Andráshidán!
+            </p>
+        </section>
+
+        <section id="szolgaltatasok">
+            <h2 class="text-2xl md:text-3xl font-bold mb-6 text-center">Szolgáltatások</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="szolgaltatas"> <img src="javitas.jpg" alt="Gépkocsi javítás">
+                    <h3>Gépkocsi javítás</h3>
+                    <p>Vállaljuk személy- és kisteherautók szakszerű javítását...</p>
+                </div>
+                <div class="szolgaltatas"> <img src="polirozas.jpg" alt="Polírozás">
+                    <h3>Polírozás</h3>
+                    <p>Professzionális polírozással visszaadjuk autója fényét...</p>
+                </div>
+                <div class="szolgaltatas"> <img src="muanyag_hegesztes.jpg" alt="Műanyag hegesztés">
+                    <h3>Műanyag hegesztés</h3>
+                    <p>Megsérült műanyag alkatrészek javítása hegesztéssel...</p>
+                </div>
+                <div class="szolgaltatas lg:col-span-1 md:col-span-2"> <img src="karosszeria.jpg" alt="Karosszéria munkák">
+                    <h3>Karosszéria munkák</h3>
+                    <p>Horpadások javítása, sérült karosszériaelemek cseréje...</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="referenciak">
+            <h2 class="text-2xl md:text-3xl font-bold mb-6 text-center">Referenciák</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="referencia-munka">
+                    <h3>Karosszéria Javítás</h3>
+                    <img src="ref_karosszeria.jpg" alt="Karosszéria javítás" class="ref-img-single">
+                    <p class="text-sm">karosszéria javítás.</p>
+                    <button data-gallery="karosszeria" class="mt-auto bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded transition duration-300">
+                        Karosszéria Képek
+                    </button>
+                </div>
+                <div class="referencia-munka">
+                     <h3>Polírozás</h3>
+                     <div class="flex justify-center space-x-2 mb-4">
+                         <img src="polirozas_elotte.jpg" alt="Polírozás előtte" class="ref-img-pair">
+                         <img src="polirozas_utana.jpg" alt="Polírozás utána" class="ref-img-pair">
+                     </div>
+                     <p class="text-sm mb-4">Egyedi technológiával végzett polírozás.</p>
+                     <button data-gallery="polirozas" class="mt-auto bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded transition duration-300">
+                         Polírozás Képek
+                     </button>
+                </div>
+                <div class="referencia-munka">
+                     <h3>Műanyag Javítás</h3>
+                     <div class="flex justify-center space-x-2 mb-4">
+                         <img src="muanyag_elotte.jpg" alt="Műanyag javítás előtte" class="ref-img-pair">
+                         <img src="muanyag_utana.jpg" alt="Műanyag javítás utána" class="ref-img-pair">
+                     </div>
+                     <p class="text-sm mb-4">Műanyag lökhárító javítása hegesztéssel.</p> <button data-gallery="muanyag" class="mt-auto bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded transition duration-300">
+                         Műanyag Javítás Képek
+                     </button>
+                </div>
+            </div>
+        </section>
+
+        <section id="kapcsolat">
+            <h2 class="text-2xl md:text-3xl font-bold mb-6 text-center">Kapcsolat</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                <div>
+                     <p class="mb-4">
+                        <strong class="block text-lg mb-1">Kovács Krisztián E.V.</strong>
+                        Székhely: 8918 Németfalu, Petőfi utca 8.<br>
+                        <strong class="text-blue-600">Telephely: 8900 Zalaegerszeg, Berek utca 38.</strong><br>
+                        Adószám: 90982862-1-40<br>
+                        Nyilvántartási szám: 60345321
+                    </p>
+                    <p>
+                        <strong class="block text-lg mb-1">Elérhetőség:</strong>
+                        Telefon: <a href="tel:+36304134151" class="font-semibold">+36 30 413 4151</a><br>
+                        Email: <a href="mailto:krisztian.kovacs199601@gmail.com" class="font-semibold">krisztian.kovacs199601@gmail.com</a>
+                    </p>
+                </div>
+                <div class="terkep-kontener rounded-md overflow-hidden shadow-md">
+                    <iframe
+                        src="https://maps.google.com/maps?q=Zalaegerszeg%2C%20Berek%20utca%2038&t=&z=15&ie=UTF8&iwloc=&output=embed"
+                        style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                 </div>
+            </div>
+        </section>
+
+        <section id="ajanlatkeres">
+            <h2 class="text-2xl md:text-3xl font-bold mb-4 text-center">Ajánlatkérés</h2>
+            <p class="mb-6 text-center">Kérjük, töltse ki az alábbi űrlapot...</p>
+            <form action="https://formspree.io/f/YOUR_FORM_ID_HERE" method="post">
+                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                    <div>
+                        <label for="nev">Név:</label>
+                        <input type="text" id="nev" name="nev" required class="block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 sm:text-sm p-2">
+                    </div>
+                    <div>
+                        <label for="email">E-mail cím:</label>
+                        <input type="email" id="email" name="email" required class="block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 sm:text-sm p-2">
+                    </div>
+                </div>
+                 <div class="mb-4">
+                    <label for="telefon">Telefonszám:</label>
+                    <input type="tel" id="telefon" name="telefon" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 sm:text-sm p-2">
+                </div>
+                <div class="mb-4">
+                    <label for="szolgaltatas">Érdeklődöm a következő szolgáltatás iránt:</label>
+                    <select id="szolgaltatas" name="szolgaltatas" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 sm:text-sm p-2">
+                        <option value="gepjarmu_javitas">Gépkocsi javítás</option>
+                        <option value="polirozas">Polírozás</option>
+                        <option value="muanyag_hegesztes">Műanyag hegesztés</option>
+                        <option value="karosszeria_munkak">Karosszéria munkák</option>
+                        <option value="egyeb">Egyéb</option>
+                    </select>
+                </div>
+                <div class="mb-6">
+                    <label for="leiras">Részletes leírás a munkáról:</label>
+                    <textarea id="leiras" name="leiras" rows="5" required class="block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 sm:text-sm p-2"></textarea>
+                </div>
+                <div class="text-center">
+                    <button type="submit" class="w-full md:w-auto inline-flex justify-center py-2 px-6 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition duration-300">
+                        Ajánlatkérés küldése
+                    </button>
+                </div>
+            </form>
+        </section>
+
+    </main>
+
+    <footer class="bg-gray-800 text-gray-300 fixed bottom-0 left-0 right-0 z-50 h-16 flex items-center">
+        <div class="container mx-auto px-4 text-center text-sm">
+            <p>© <span id="current-year"></span> Kovács Krisztián EV. - Minden jog fenntartva.</p>
+        </div>
+    </footer>
+
+    <div id="lightbox-modal" class="fixed inset-0 bg-black/90 hidden items-center justify-center z-[100] p-4 opacity-0 transition-opacity duration-300">
+        <div class="bg-white p-5 rounded-lg max-w-5xl w-full max-h-[90vh] overflow-auto relative shadow-xl">
+            <button id="lightbox-close" class="absolute top-2 right-3 text-black hover:text-red-600 text-4xl font-light leading-none z-10">×</button>
+            <h3 id="lightbox-title" class="text-2xl font-bold mb-4 text-center text-gray-800">Galéria</h3>
+            <div id="lightbox-content" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+                </div>
+            <div id="lightbox-large-image-container" class="hidden text-center mt-4">
+                 <img id="lightbox-large-image" src="" alt="Nagyított kép" class="max-w-full max-h-[70vh] inline-block mb-4 shadow-lg rounded">
+                 <button id="lightbox-back-to-grid" class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded transition duration-300">
+                     Vissza a galériához
+                 </button>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // --- Existing Navigation and Year Code ---
+            const navLinks = document.querySelectorAll('header nav ul li a');
+            const sections = document.querySelectorAll('main section[id]');
+            const headerElement = document.querySelector('header');
+            const headerHeight = headerElement ? headerElement.offsetHeight : 80;
+
+            function showSection(targetId) {
+                sections.forEach(section => {
+                    section.style.display = 'none';
+                });
+                const targetSection = document.getElementById(targetId);
+                if (targetSection) {
+                    targetSection.style.display = 'block';
+                } else {
+                    const defaultSection = document.getElementById('kezdolap');
+                     if (defaultSection) defaultSection.style.display = 'block';
+                }
+            }
+
+            function updateActiveLink(targetId) {
+                navLinks.forEach(link => {
+                    if (link.getAttribute('data-target') === targetId) {
+                        link.classList.add('active');
+                    } else {
+                        link.classList.remove('active');
+                    }
+                });
+            }
+
+            function handleLinkClick(event) {
+                 const targetId = this.getAttribute('data-target');
+                 if (targetId) {
+                     showSection(targetId);
+                     updateActiveLink(targetId);
+                     const targetSection = document.getElementById(targetId);
+                     if (targetSection) {
+                         const elementPosition = targetSection.getBoundingClientRect().top;
+                         const offsetPosition = elementPosition + window.scrollY - headerHeight;
+                         window.scrollTo({ top: offsetPosition });
+                     }
+                 }
+             }
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', handleLinkClick);
+            });
+
+             const sectionLinks = document.querySelectorAll('a[data-target]');
+             sectionLinks.forEach(link => {
+                 if (!link.closest('header nav')) {
+                     link.addEventListener('click', handleLinkClick);
+                 }
+             });
+
+            let initialTargetId = window.location.hash.substring(1);
+            if (!initialTargetId || !document.getElementById(initialTargetId)) {
+                 initialTargetId = 'kezdolap';
+            }
+            showSection(initialTargetId);
+            updateActiveLink(initialTargetId);
+
+            setTimeout(() => {
+                if (window.location.hash && initialTargetId !== 'kezdolap') { // Avoid scrolling for default
+                    const targetSection = document.getElementById(initialTargetId);
+                     if (targetSection) {
+                        const elementPosition = targetSection.getBoundingClientRect().top;
+                        const offsetPosition = elementPosition + window.scrollY - headerHeight;
+                        window.scrollTo({ top: offsetPosition });
+                    }
+                }
+            }, 100);
+
+            const yearSpan = document.getElementById('current-year');
+            if (yearSpan) {
+                yearSpan.textContent = new Date().getFullYear();
+            }
+
+            // --- NEW Lightbox Gallery Code ---
+
+            // Define Gallery Data
+            const galleries = {
+                // IMPORTANT: User needs to create k1.jpg through k6.jpg files!
+                'karosszeria': {
+                    title: 'Karosszéria Javítás Képek',
+                    images: ['k1.jpg', 'k2.jpg', 'k3.jpg', 'k4.jpg', 'k5.jpg', 'k6.jpg'] // Expecting 6 images
+                },
+                 // IMPORTANT: User needs to create p1.jpg through p5.jpg files!
+                'polirozas': {
+                     title: 'Polírozás Képek',
+                     images: ['p1.jpg', 'p2.jpg', 'p3.jpg', 'p4.jpg', 'p5.jpg'] // Expecting 5 images
+                 },
+                 // IMPORTANT: User needs to create m1.jpg through m3.jpg files!
+                 'muanyag': {
+                     title: 'Műanyag Javítás Képek',
+                     images: ['m1.jpg', 'm2.jpg', 'm3.jpg'] // Expecting 3 images with .jpg extension
+                 }
+                // Add other galleries here as needed
+            };
+
+            // Get Modal Elements
+            const modal = document.getElementById('lightbox-modal');
+            const modalCloseButton = document.getElementById('lightbox-close');
+            const modalTitle = document.getElementById('lightbox-title');
+            const modalContent = document.getElementById('lightbox-content'); // Grid container
+            const modalLargeImageContainer = document.getElementById('lightbox-large-image-container');
+            const modalLargeImage = document.getElementById('lightbox-large-image');
+            const modalBackButton = document.getElementById('lightbox-back-to-grid');
+
+            // Get Gallery Trigger Buttons
+            const galleryButtons = document.querySelectorAll('button[data-gallery]');
+
+            // Function to open the modal
+            function openModal(galleryKey) {
+                const galleryData = galleries[galleryKey];
+                if (!galleryData || !galleryData.images || galleryData.images.length === 0) {
+                    console.error('Gallery data not found or empty for key:', galleryKey);
+                    // Optionally show an alert or message to the user
+                    // alert('A keresett galéria jelenleg üres.');
+                    return;
+                }
+
+                // Set title
+                modalTitle.textContent = galleryData.title || 'Galéria';
+
+                // Populate grid content
+                modalContent.innerHTML = ''; // Clear previous images
+                galleryData.images.forEach(imgSrc => {
+                    const imgElement = document.createElement('img');
+                    imgElement.src = imgSrc; // Assumes images are in the same folder as index.html
+                    imgElement.alt = galleryData.title + ' kép'; // Generic alt text
+                    imgElement.classList.add('w-full', 'h-32', 'object-cover', 'rounded', 'cursor-pointer', 'hover:opacity-80', 'transition-opacity');
+                    // Add error handler for gallery images
+                    imgElement.onerror = function() {
+                        this.onerror=null;
+                        this.src='https://placehold.co/200x150/f87171/ffffff?text=Hiba';
+                        this.alt = 'Kép betöltése sikertelen';
+                    };
+                    // Store src for click listener
+                    imgElement.dataset.fullSrc = imgSrc;
+                    modalContent.appendChild(imgElement);
+                });
+
+                // Ensure grid is visible and large image is hidden initially
+                modalContent.style.display = 'grid';
+                modalLargeImageContainer.style.display = 'none';
+
+
+                // Show modal with fade-in effect
+                modal.classList.remove('hidden');
+                modal.classList.add('show'); // Add 'show' class to trigger potential CSS transition
+                // Force reflow to ensure transition starts
+                void modal.offsetWidth;
+                modal.style.opacity = '1';
+
+                // Prevent body scroll when modal is open
+                document.body.style.overflow = 'hidden';
+            }
+
+            // Function to close the modal
+            function closeModal() {
+                 modal.style.opacity = '0';
+                 // Wait for transition to finish before hiding
+                 setTimeout(() => {
+                    modal.classList.add('hidden');
+                    modal.classList.remove('show');
+                 }, 300); // Match transition duration if any
+
+                // Restore body scroll
+                document.body.style.overflow = '';
+            }
+
+             // Function to show large image
+            function showLargeImage(src) {
+                modalLargeImage.src = src;
+                modalContent.style.display = 'none'; // Hide grid
+                modalLargeImageContainer.style.display = 'block'; // Show large image container
+            }
+
+             // Function to show grid again
+             function showGrid() {
+                 modalLargeImageContainer.style.display = 'none'; // Hide large image
+                 modalContent.style.display = 'grid'; // Show grid
+             }
+
+
+            // Add Event Listeners to Gallery Buttons
+            galleryButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const galleryKey = this.dataset.gallery;
+                    openModal(galleryKey);
+                });
+            });
+
+            // Add Event Listener for closing modal
+            modalCloseButton.addEventListener('click', closeModal);
+            modalBackButton.addEventListener('click', showGrid);
+
+            // Add Event Listener for clicking outside the modal content to close
+            modal.addEventListener('click', function(event) {
+                // Close only if the click is directly on the modal background (event.target)
+                if (event.target === modal) {
+                    closeModal();
+                }
+            });
+
+             // Add Event Listener for clicking images within the grid (using event delegation)
+             modalContent.addEventListener('click', function(event) {
+                 if (event.target.tagName === 'IMG' && event.target.dataset.fullSrc) {
+                     showLargeImage(event.target.dataset.fullSrc);
+                 }
+             });
+
+        });
+    </script>
+
+</body>
+</html>
