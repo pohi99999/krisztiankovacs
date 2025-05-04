@@ -51,14 +51,14 @@
           }
 
         /* Specific styling for sections with transparent background */
-        #szolgaltatasok, #referenciak, #ajanlatkeres {
+        #szolgaltatasok, #referenciak, #ajanlatkeres { /* Removed #egyeb-munkalatok */
             background-color: transparent; /* Override default section background */
             padding: 0; /* Remove section padding, rely on card/form padding */
             margin-bottom: 20px; /* Keep margin */
             /* box-shadow: none; */ /* Remove shadow if desired */
         }
         /* Keep the H2 style consistent for transparent sections */
-         #szolgaltatasok h2, #referenciak h2, #ajanlatkeres h2 {
+         #szolgaltatasok h2, #referenciak h2, #ajanlatkeres h2 { /* Removed #egyeb-munkalatok h2 */
              color: #FFF;
              padding-top: 20px; /* Add padding back to H2 */
              margin-bottom: 1.5rem; /* Keep original mb-6 spacing (approx) */
@@ -69,7 +69,7 @@
              text-shadow: 0px 0px 6px rgba(0, 0, 0, 0.8); /* Add shadow to H2s on transparent bg */
          }
          /* Adjust Ajánlatkérés paragraph padding/margin if needed */
-         #ajanlatkeres > p { /* Target the paragraph directly under the section */
+         #ajanlatkeres > p { /* Removed #egyeb-munkalatok > p */
               padding: 0 20px; /* Add horizontal padding if section padding is removed */
               margin-bottom: 1.5rem; /* mb-6 */
               text-align: center;
@@ -226,7 +226,7 @@
                     <li><a href="#referenciak" data-target="referenciak" class="text-gray-200 hover:text-white py-2 px-1 transition duration-300">Referenciák</a></li>
                     <li><a href="#kapcsolat" data-target="kapcsolat" class="text-gray-200 hover:text-white py-2 px-1 transition duration-300">Kapcsolat</a></li>
                     <li><a href="#ajanlatkeres" data-target="ajanlatkeres" class="text-gray-200 hover:text-white py-2 px-1 transition duration-300">Ajánlatkérés</a></li>
-                </ul>
+                    </ul>
             </nav>
         </div>
     </header>
@@ -287,10 +287,17 @@
 
         <section id="referenciak">
             <h2 class="text-2xl md:text-3xl font-bold mb-6 text-center">Referenciák</h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+                 <div class="referencia-munka">
+                    <h3>Gépkocsi Javítás</h3>
+                    <img src="g_javitas.jpg" alt="Gépkocsi javítás" class="ref-img-single">
+                    <p class="text-sm">Korábbi gépkocsi javítási munkáink.</p> <button data-gallery="gepkocsi" class="mt-auto bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded transition duration-300">
+                        Gépkocsi Javítás Képek
+                    </button>
+                </div>
                 <div class="referencia-munka">
                     <h3>Karosszéria Javítás</h3>
-                    <img src="ref_karosszeria.jpg" alt="Karosszéria javítás" class="ref-img-single">
+                    <img src="g4.jpg" alt="Karosszéria javítás" class="ref-img-single">
                     <p class="text-sm">karosszéria javítás.</p>
                     <button data-gallery="karosszeria" class="mt-auto bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded transition duration-300">
                         Karosszéria Képek
@@ -317,6 +324,10 @@
                          Műanyag Javítás Képek
                      </button>
                 </div>
+                 <div class="referencia-munka"> <h3>Egyéb Munkálatok</h3> <p class="text-sm">Tekintse meg további munkáinkat a galériában.</p> <button data-gallery="egyeb" class="mt-auto bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded transition duration-300">
+                       Egyéb Képek
+                    </button>
+               </div>
             </div>
         </section>
 
@@ -385,7 +396,7 @@
             </form>
         </section>
 
-    </main>
+        </main>
 
     <footer class="bg-gray-800 text-gray-300 fixed bottom-0 left-0 right-0 z-50 h-16 flex items-center">
         <div class="container mx-auto px-4 text-center text-sm">
@@ -492,6 +503,11 @@
 
             // Define Gallery Data
             const galleries = {
+                 // IMPORTANT: User needs to create g_javitas.jpg and gj1.jpg through gj5.jpg files!
+                 'gepkocsi': {
+                     title: 'Gépkocsi Javítás Képek',
+                     images: ['gj1.jpg', 'gj2.jpg', 'gj3.jpg', 'gj4.jpg', 'gj5.jpg'] // Expecting 5 images
+                 },
                 // IMPORTANT: User needs to create k1.jpg through k6.jpg files!
                 'karosszeria': {
                     title: 'Karosszéria Javítás Képek',
@@ -506,8 +522,12 @@
                  'muanyag': {
                      title: 'Műanyag Javítás Képek',
                      images: ['m1.jpg', 'm2.jpg', 'm3.jpg'] // Expecting 3 images with .jpg extension
+                 },
+                 // IMPORTANT: User needs to create e1.jpg through e3.jpg files!
+                 'egyeb': {
+                     title: 'Egyéb Munkálatok Képek',
+                     images: ['e1.jpg', 'e2.jpg', 'e3.jpg'] // Updated to 3 images
                  }
-                // Add other galleries here as needed
             };
 
             // Get Modal Elements
