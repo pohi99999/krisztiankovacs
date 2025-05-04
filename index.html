@@ -51,14 +51,14 @@
           }
 
         /* Specific styling for sections with transparent background */
-        #szolgaltatasok, #referenciak, #ajanlatkeres { /* Removed #egyeb-munkalatok */
+        #szolgaltatasok, #referenciak, #ajanlatkeres {
             background-color: transparent; /* Override default section background */
             padding: 0; /* Remove section padding, rely on card/form padding */
             margin-bottom: 20px; /* Keep margin */
             /* box-shadow: none; */ /* Remove shadow if desired */
         }
         /* Keep the H2 style consistent for transparent sections */
-         #szolgaltatasok h2, #referenciak h2, #ajanlatkeres h2 { /* Removed #egyeb-munkalatok h2 */
+         #szolgaltatasok h2, #referenciak h2, #ajanlatkeres h2 {
              color: #FFF;
              padding-top: 20px; /* Add padding back to H2 */
              margin-bottom: 1.5rem; /* Keep original mb-6 spacing (approx) */
@@ -69,7 +69,7 @@
              text-shadow: 0px 0px 6px rgba(0, 0, 0, 0.8); /* Add shadow to H2s on transparent bg */
          }
          /* Adjust Ajánlatkérés paragraph padding/margin if needed */
-         #ajanlatkeres > p { /* Removed #egyeb-munkalatok > p */
+         #ajanlatkeres > p {
               padding: 0 20px; /* Add horizontal padding if section padding is removed */
               margin-bottom: 1.5rem; /* mb-6 */
               text-align: center;
@@ -297,6 +297,7 @@
                 </div>
                 <div class="referencia-munka">
                     <h3>Karosszéria Javítás</h3>
+                    <img src="karosszeria.jpg" alt="Karosszéria javítás" class="ref-img-single">
                     <p class="text-sm">karosszéria javítás.</p>
                     <button data-gallery="karosszeria" class="mt-auto bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded transition duration-300">
                         Karosszéria Képek
@@ -323,7 +324,8 @@
                          Műanyag Javítás Képek
                      </button>
                 </div>
-                 <div class="referencia-munka"> <h3>Egyéb Munkálatok</h3> <p class="text-sm">Tekintse meg további munkáinkat a galériában.</p> <button data-gallery="egyeb" class="mt-auto bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded transition duration-300">
+                 <div class="referencia-munka"> <h3>Egyéb Munkálatok</h3> <img src="ee.jpg" alt="Egyéb munkák" class="ref-img-single">
+                    <p class="text-sm">Tekintse meg további munkáinkat a galériában.</p> <button data-gallery="egyeb" class="mt-auto bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded transition duration-300">
                        Egyéb Képek
                     </button>
                </div>
