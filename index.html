@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="hu" class="scroll-smooth">
 
-<head>
+<head><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1800717794966790"
+     crossorigin="anonymous"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kovács Krisztián EV. - Autójavítás Zalaegerszeg</title>
@@ -51,14 +52,14 @@
           }
 
         /* Specific styling for sections with transparent background */
-        #szolgaltatasok, #referenciak, #ajanlatkeres {
+        #szolgaltatasok, #referenciak, #ajanlatkeres { /* Removed #egyeb-munkalatok */
             background-color: transparent; /* Override default section background */
             padding: 0; /* Remove section padding, rely on card/form padding */
             margin-bottom: 20px; /* Keep margin */
             /* box-shadow: none; */ /* Remove shadow if desired */
         }
         /* Keep the H2 style consistent for transparent sections */
-         #szolgaltatasok h2, #referenciak h2, #ajanlatkeres h2 {
+         #szolgaltatasok h2, #referenciak h2, #ajanlatkeres h2 { /* Removed #egyeb-munkalatok h2 */
              color: #FFF;
              padding-top: 20px; /* Add padding back to H2 */
              margin-bottom: 1.5rem; /* Keep original mb-6 spacing (approx) */
@@ -69,7 +70,7 @@
              text-shadow: 0px 0px 6px rgba(0, 0, 0, 0.8); /* Add shadow to H2s on transparent bg */
          }
          /* Adjust Ajánlatkérés paragraph padding/margin if needed */
-         #ajanlatkeres > p {
+         #ajanlatkeres > p { /* Removed #egyeb-munkalatok > p */
               padding: 0 20px; /* Add horizontal padding if section padding is removed */
               margin-bottom: 1.5rem; /* mb-6 */
               text-align: center;
@@ -297,8 +298,7 @@
                 </div>
                 <div class="referencia-munka">
                     <h3>Karosszéria Javítás</h3>
-                    <img src="karosszeria.jpg" alt="Karosszéria javítás" class="ref-img-single">
-                    <p class="text-sm">karosszéria javítás.</p>
+                    <img src="karosszeria.jpg" alt="Karosszéria javítás" class="ref-img-single"> <p class="text-sm">karosszéria javítás.</p>
                     <button data-gallery="karosszeria" class="mt-auto bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded transition duration-300">
                         Karosszéria Képek
                     </button>
@@ -509,15 +509,15 @@
                      title: 'Gépkocsi Javítás Képek',
                      images: ['gj1.jpg', 'gj2.jpg', 'gj3.jpg', 'gj4.jpg', 'gj5.jpg'] // Expecting 5 images
                  },
-                // IMPORTANT: User needs to create k1.jpg through k6.jpg files!
+                // IMPORTANT: User needs to create k1.1.jpg, k1.2.jpg, k1.3.jpg files!
                 'karosszeria': {
                     title: 'Karosszéria Javítás Képek',
-                    images: ['k1.jpg', 'k2.jpg', 'k3.jpg', 'k4.jpg', 'k5.jpg', 'k6.jpg'] // Expecting 6 images
+                    images: ['k1.1.jpg', 'k1.2.jpg', 'k1.3.jpg'] // Updated to 3 images
                 },
-                 // IMPORTANT: User needs to create p1.jpg through p5.jpg files!
+                 // IMPORTANT: User needs to create p1.1.jpg through p1.6.jpg files!
                 'polirozas': {
                      title: 'Polírozás Képek',
-                     images: ['p1.jpg', 'p2.jpg', 'p3.jpg', 'p4.jpg', 'p5.jpg'] // Expecting 5 images
+                     images: ['p1.1.jpg', 'p1.2.jpg', 'p1.3.jpg', 'p1.4.jpg', 'p1.5.jpg', 'p1.6.jpg'] // Updated to 6 images
                  },
                  // IMPORTANT: User needs to create m1.jpg through m3.jpg files!
                  'muanyag': {
